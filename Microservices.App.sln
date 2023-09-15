@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C4583FBE-EDB0-4774-9821-83F81C42EB23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{38FE61C8-C991-4DC7-BDA2-9678C3B4E9F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{75A73F4B-854F-41DD-937C-244518967C08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{CD4347B6-F470-49D7-ACA8-43A4D99C3AFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{57B11011-4CB8-4195-9905-EE1F0E638953}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4B1150B7-5044-4734-B9AE-65C325D1EBC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.App.Services.WebAPI", "src\Services\Microservices.App.Services.WebAPI\Microservices.App.Services.WebAPI.csproj", "{05CC7F03-5837-406E-9442-3D84B7DBFD50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05CC7F03-5837-406E-9442-3D84B7DBFD50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05CC7F03-5837-406E-9442-3D84B7DBFD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05CC7F03-5837-406E-9442-3D84B7DBFD50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05CC7F03-5837-406E-9442-3D84B7DBFD50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75A73F4B-854F-41DD-937C-244518967C08} = {C4583FBE-EDB0-4774-9821-83F81C42EB23}
+		{CD4347B6-F470-49D7-ACA8-43A4D99C3AFE} = {C4583FBE-EDB0-4774-9821-83F81C42EB23}
+		{57B11011-4CB8-4195-9905-EE1F0E638953} = {C4583FBE-EDB0-4774-9821-83F81C42EB23}
+		{4B1150B7-5044-4734-B9AE-65C325D1EBC0} = {C4583FBE-EDB0-4774-9821-83F81C42EB23}
+		{05CC7F03-5837-406E-9442-3D84B7DBFD50} = {4B1150B7-5044-4734-B9AE-65C325D1EBC0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D62F7DA3-09BB-49B4-8A72-D6A97841B818}
+	EndGlobalSection
+EndGlobal
