@@ -14,8 +14,6 @@ public class BaseService:IBaseService
     public BaseService(IHttpClientFactory httpClientFactory)
     {
         this.httpClientFactory = httpClientFactory;
-        ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-        
     }
 
     public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
