@@ -19,7 +19,7 @@ namespace Microservices.App.Services.WebAPI.Data
             {
                 CouponId = 1,
                 CouponCode = "test1",
-                DicountAmount = 10,
+                DiscountAmount = 10,
                 MinAmount = 20,
             });
 
@@ -27,7 +27,7 @@ namespace Microservices.App.Services.WebAPI.Data
             {
                 CouponId = 2,
                 CouponCode = "test2",
-                DicountAmount = 20,
+                DiscountAmount = 20,
                 MinAmount = 40,
             });
 
@@ -35,7 +35,7 @@ namespace Microservices.App.Services.WebAPI.Data
             {
                 CouponId = 3,
                 CouponCode = "test3",
-                DicountAmount = 30,
+                DiscountAmount = 30,
                 MinAmount = 60,
             });
         }

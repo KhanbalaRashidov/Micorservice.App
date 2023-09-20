@@ -14,6 +14,8 @@ public class BaseService:IBaseService
     public BaseService(IHttpClientFactory httpClientFactory)
     {
         this.httpClientFactory = httpClientFactory;
+        ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+        
     }
 
     public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
@@ -21,6 +23,7 @@ public class BaseService:IBaseService
         try
         {
             var client = this.httpClientFactory.CreateClient("Microservice");
+            
             HttpRequestMessage message = new();
             message.Headers.Add("Accept", "application/json");
 

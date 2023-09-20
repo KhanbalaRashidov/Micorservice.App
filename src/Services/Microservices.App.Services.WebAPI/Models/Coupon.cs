@@ -9,7 +9,7 @@ namespace Microservices.App.Services.WebAPI.Models
         [Required]
         public string CouponCode { get; set; }
         [Required]
-        public double DicountAmount { get; set; }
+        public double DiscountAmount { get; set; }
         public int MinAmount { get; set; }
         //public DateTime UpdateDate { get; set; }
     }

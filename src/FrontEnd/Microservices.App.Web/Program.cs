@@ -7,7 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("Microservice", client =>
+{
+}).ConfigurePrimaryHttpMessageHandler(() =>
+{
+    var clientHandler = new HttpClientHandler();
+    clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+    return clientHandler;
+});
 builder.Services.AddHttpClient<ICouponService, CouponService>();
 
 SD.CouponAPIBase = builder.Configuration["ServicesUrls:CouponAPI"];
