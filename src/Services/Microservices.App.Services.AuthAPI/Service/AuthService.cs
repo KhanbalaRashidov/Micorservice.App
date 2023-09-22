@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Microservices.App.Services.AuthAPI.Service
 {
-    public class AuthService:IAuthService
+    public class AuthService : IAuthService
     {
         private readonly AppDbContext dbContext;
-        private  readonly UserManager<ApplicationUser> userManager;
-        private  readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public AuthService(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -19,7 +19,7 @@ namespace Microservices.App.Services.AuthAPI.Service
             this.roleManager = roleManager;
         }
 
-        public async Task<UserDto> Register(RegistrationRequestDto registrationRequestDto)
+        public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {
             ApplicationUser user = new()
             {
@@ -32,29 +32,33 @@ namespace Microservices.App.Services.AuthAPI.Service
 
             try
             {
-                var result= await this.userManager.CreateAsync(user,registrationRequestDto.Password);
+                var result = await this.userManager.CreateAsync(user, registrationRequestDto.Password);
 
                 if (result.Succeeded)
                 {
-                     var userToReturn= this.dbContext.ApplicationUsers.First(user=>user.UserName==registrationRequestDto.Email);
+                    var userToReturn = this.dbContext.ApplicationUsers.First(user => user.UserName == registrationRequestDto.Email);
 
-                     UserDto userDto = new()
-                     {
-                         Email = userToReturn.Email,
-                         ID = userToReturn.Id,
-                         Name = userToReturn.Name,
-                         PhoneNumber = userToReturn.PhoneNumber
-                     };
+                    UserDto userDto = new()
+                    {
+                        Email = userToReturn.Email,
+                        ID = userToReturn.Id,
+                        Name = userToReturn.Name,
+                        PhoneNumber = userToReturn.PhoneNumber
+                    };
 
-                     return userDto;
+                    return "";
+                }
+                else
+                {
+                    return result.Errors.FirstOrDefault().Description;
                 }
             }
             catch (Exception e)
             {
-               
+
             }
 
-            return  new UserDto();
+            return "Error Encountered";
         }
 
         public Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
