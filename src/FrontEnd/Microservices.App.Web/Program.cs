@@ -16,10 +16,12 @@ builder.Services.AddHttpClient("Microservice", client =>
     return clientHandler;
 });
 builder.Services.AddHttpClient<ICouponService, CouponService>();
-
+builder.Services.AddHttpClient<IAuthService, AuthService>();
 SD.CouponAPIBase = builder.Configuration["ServicesUrls:CouponAPI"];
+SD.AuthAPIBase = builder.Configuration["ServicesUrls:AuthAPI"];
 
 builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 
 var app = builder.Build();
