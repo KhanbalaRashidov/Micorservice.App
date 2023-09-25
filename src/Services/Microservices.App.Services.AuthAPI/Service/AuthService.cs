@@ -3,6 +3,7 @@ using Microservices.App.Services.AuthAPI.Models;
 using Microservices.App.Services.AuthAPI.Models.Dtos;
 using Microservices.App.Services.AuthAPI.Service.Abstracts;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Microservices.App.Services.AuthAPI.Service
 {
@@ -11,12 +12,15 @@ namespace Microservices.App.Services.AuthAPI.Service
         private readonly AppDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IJwtTokenGenerator jwtTokenGenerator;
 
-        public AuthService(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AuthService(AppDbContext dbContext, UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager, IJwtTokenGenerator jwtTokenGenerator)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.jwtTokenGenerator = jwtTokenGenerator;
         }
 
         public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
@@ -61,9 +65,54 @@ namespace Microservices.App.Services.AuthAPI.Service
             return "Error Encountered";
         }
 
-        public Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
+        public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
         {
-            throw new NotImplementedException();
+            var user = await this.dbContext.ApplicationUsers.FirstOrDefaultAsync(u =>
+                u.UserName.ToLower() == loginRequestDto.UserName.ToLower());
+
+            var isValid = await this.userManager.CheckPasswordAsync(user, loginRequestDto.Password);
+
+            if (user == null || isValid == false)
+            {
+                return new LoginResponseDto() { User = null, Token = "" };
+            }
+
+            var token = this.jwtTokenGenerator.GenerateJwtToken(user);
+
+            var userDto = new UserDto()
+            {
+                ID = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            var loginResponseDto = new LoginResponseDto()
+            {
+                User = userDto,
+                Token = token 
+            };
+
+            return loginResponseDto;
+        }
+
+        public async Task<bool> AssignRole(string email, string roleName)
+        {
+            var user= this.dbContext.ApplicationUsers.FirstOrDefault(u=>u.Email.ToLower() == email.ToLower());
+
+            if (user!= null)
+            {
+                if (!this.roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
+                {
+                    this.roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
+                }
+
+                await this.userManager.AddToRoleAsync(user, roleName);
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Microservices.App.Services.AuthAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230920101751_UpdateIdentityTable")]
-    partial class UpdateIdentityTable
+    [Migration("20230925055109_UpdateAuth")]
+    partial class UpdateAuth
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
