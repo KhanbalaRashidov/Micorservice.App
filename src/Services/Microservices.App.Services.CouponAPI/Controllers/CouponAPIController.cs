@@ -2,12 +2,14 @@
 using Microservices.App.Services.WebAPI.Data;
 using Microservices.App.Services.WebAPI.Models;
 using Microservices.App.Services.WebAPI.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservices.App.Services.WebAPI.Controllers
 {
     [Route("api/coupon")]
     [ApiController]
+    [Authorize]
     public class CouponAPIController : ControllerBase
     {
         private readonly AppDbContext appDbContext;
@@ -79,6 +81,7 @@ namespace Microservices.App.Services.WebAPI.Controllers
         }
         
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
@@ -99,6 +102,7 @@ namespace Microservices.App.Services.WebAPI.Controllers
         }
         
         [HttpPut]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Put([FromBody] CouponDto couponDto)
         {
             try
@@ -119,6 +123,7 @@ namespace Microservices.App.Services.WebAPI.Controllers
         }
         
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int id)
         {
             try

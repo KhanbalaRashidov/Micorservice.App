@@ -10,13 +10,15 @@ namespace Microservices.App.Web.Service;
 public class BaseService:IBaseService
 {
     private readonly IHttpClientFactory httpClientFactory;
+    private readonly ITokenProvider tokenProvider;
 
-    public BaseService(IHttpClientFactory httpClientFactory)
+    public BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
     {
         this.httpClientFactory = httpClientFactory;
+        this.tokenProvider = tokenProvider;
     }
 
-    public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
+    public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true)
     {
         try
         {
@@ -26,6 +28,12 @@ public class BaseService:IBaseService
             message.Headers.Add("Accept", "application/json");
 
             // token
+
+            if (withBearer)
+            {
+                var token= tokenProvider.GetToken();
+                message.Headers.Add("Authorization", $"Bearer {token}");
+            }
 
             message.RequestUri = new Uri(requestDto.Url);
             if (requestDto.Data is not null)

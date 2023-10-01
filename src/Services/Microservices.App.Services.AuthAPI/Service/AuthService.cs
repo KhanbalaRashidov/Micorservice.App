@@ -14,7 +14,7 @@ namespace Microservices.App.Services.AuthAPI.Service
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IJwtTokenGenerator jwtTokenGenerator;
 
-        public AuthService(AppDbContext dbContext, UserManager<ApplicationUser> userManager, 
+        public AuthService(AppDbContext dbContext, UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager, IJwtTokenGenerator jwtTokenGenerator)
         {
             this.dbContext = dbContext;
@@ -77,7 +77,9 @@ namespace Microservices.App.Services.AuthAPI.Service
                 return new LoginResponseDto() { User = null, Token = "" };
             }
 
-            var token = this.jwtTokenGenerator.GenerateJwtToken(user);
+            var roles = await this.userManager.GetRolesAsync(user);
+
+            var token = this.jwtTokenGenerator.GenerateJwtToken(user, roles);
 
             var userDto = new UserDto()
             {
@@ -90,7 +92,7 @@ namespace Microservices.App.Services.AuthAPI.Service
             var loginResponseDto = new LoginResponseDto()
             {
                 User = userDto,
-                Token = token 
+                Token = token
             };
 
             return loginResponseDto;
@@ -98,9 +100,9 @@ namespace Microservices.App.Services.AuthAPI.Service
 
         public async Task<bool> AssignRole(string email, string roleName)
         {
-            var user= this.dbContext.ApplicationUsers.FirstOrDefault(u=>u.Email.ToLower() == email.ToLower());
+            var user = this.dbContext.ApplicationUsers.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
 
-            if (user!= null)
+            if (user != null)
             {
                 if (!this.roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
                 {
