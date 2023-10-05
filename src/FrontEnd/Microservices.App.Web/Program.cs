@@ -19,12 +19,15 @@ builder.Services.AddHttpClient("Microservice", client =>
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
 builder.Services.AddHttpClient<IAuthService, AuthService>();
+builder.Services.AddHttpClient<IProductService, ProductService>();
 SD.CouponAPIBase = builder.Configuration["ServicesUrls:CouponAPI"];
 SD.AuthAPIBase = builder.Configuration["ServicesUrls:AuthAPI"];
+SD.ProductAPIBase = builder.Configuration["ServicesUrls:ProductAPI"];
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
