@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices.App.Services.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micorservice.App.Services.ProductAPI", "src\Services\Micorservice.App.Services.ProductAPI\Micorservice.App.Services.ProductAPI.csproj", "{E6B0B700-FAFE-4A1E-A114-815FACD355CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.App.Services.ShoppingCartAPI", "src\Services\Microservices.App.Services.ShoppingCartAPI\Microservices.App.Services.ShoppingCartAPI.csproj", "{48188CBD-7CAA-421F-BE22-F9F078A13DA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{E6B0B700-FAFE-4A1E-A114-815FACD355CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6B0B700-FAFE-4A1E-A114-815FACD355CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6B0B700-FAFE-4A1E-A114-815FACD355CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48188CBD-7CAA-421F-BE22-F9F078A13DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48188CBD-7CAA-421F-BE22-F9F078A13DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48188CBD-7CAA-421F-BE22-F9F078A13DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48188CBD-7CAA-421F-BE22-F9F078A13DA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{FACA83F8-476A-4FF4-90FE-0EAE773AF8DA} = {4B1150B7-5044-4734-B9AE-65C325D1EBC0}
 		{D78F7C7A-249D-468D-BCEB-695C786C82E6} = {4B1150B7-5044-4734-B9AE-65C325D1EBC0}
 		{E6B0B700-FAFE-4A1E-A114-815FACD355CF} = {4B1150B7-5044-4734-B9AE-65C325D1EBC0}
+		{48188CBD-7CAA-421F-BE22-F9F078A13DA5} = {4B1150B7-5044-4734-B9AE-65C325D1EBC0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D62F7DA3-09BB-49B4-8A72-D6A97841B818}
