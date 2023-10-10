@@ -67,14 +67,39 @@ namespace Microservices.App.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                var cartFromDb = this.dbContext.CartHeaders.First(u => u.UserId == cartDto.CartHeader.UserId);
+                var cartFromDb = await this.dbContext.CartHeaders.FirstAsync(u => u.UserId == cartDto.CartHeader.UserId);
                 cartFromDb.CouponCode = cartDto.CartHeader.CouponCode;
+                this.dbContext.CartHeaders.Update(cartFromDb);
+                await this.dbContext.SaveChangesAsync();
+                responseDto.Result = true;
             }
             catch (Exception ex)
             {
                 responseDto.IsSuccess = false;
                 responseDto.Message = ex.Message;
             }
+
+            return responseDto;
+        }
+
+        [HttpPost("RemoveCoupon")]
+        public async Task<object> RemoveCoupon([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                var cartFromDb = await this.dbContext.CartHeaders.FirstAsync(u => u.UserId == cartDto.CartHeader.UserId);
+                cartFromDb.CouponCode = "";
+                this.dbContext.CartHeaders.Update(cartFromDb);
+                await this.dbContext.SaveChangesAsync();
+                responseDto.Result = true;
+            }
+            catch (Exception ex)
+            {
+                responseDto.IsSuccess = false;
+                responseDto.Message = ex.Message;
+            }
+
+            return responseDto;
         }
 
         [HttpPost("CartUpsert")]
